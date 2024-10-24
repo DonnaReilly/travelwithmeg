@@ -4,6 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <script>
+        function preventOutboundLinks() {
+            var links = document.querySelectorAll('a[href^="http"]');
+            for (var i = 0; i < links.length; i++) {
+                links[i].onclick = function(event) {
+                    event.preventDefault();
+                };
+            }
+        }
+        if (navigator.userAgent.match(/MSIE|Internet Explorer/i) || navigator.userAgent.match(/Trident\/7\..*?rv:11/i)) {
+            var href = document.location.href;
+            if (!href.match(/[?&]nowprocket/)) {
+                if (href.indexOf("?") == -1) {
+                    if (href.indexOf("#") == -1) {
+                        document.write('<script type="text/javascript" src="https://cdn.nowp.rocketcdn.net/nowprocket.js?ver=2.1.0"><\/script>');
+                    } else {
+                        document.write('<script type="text/javascript" src="' + href.split("#")[0] + '?nowprocket"><\/script>');
+                    }
+                } else {
+                    document.write('<script type="text/javascript" src="' + href + '&nowprocket"><\/script>');
+                }
+            }
+            preventOutboundLinks();
+        }
+    </script>
+</head><!doctype html>
+<html lang="en-US" prefix="og: https://ogp.me/ns#" class="no-js" itemtype="https://schema.org/WebPage" itemscope>
+
+<head>
+    <meta charset="UTF-8">
+    <script>
         if (navigator.userAgent.match(/MSIE|Internet Explorer/i) || navigator.userAgent.match(/Trident\/7\..*?rv:11/i)) {
             var href = document.location.href;
             if (!href.match(/[?&]nowprocket/)) {
